@@ -1,0 +1,67 @@
+{% extends 'base_layout.html' %} {% block body %}
+<div class="mt-3">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card bg-white mb-3" style="width:350px">
+                <img class="rounded-rectangle card-img-top" src="{{data.image_url}}" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h5 class="card-title">Title : </br>{{data.title}}</h5>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item">
+                    <h5 class="card-title">Altenative Titles</h5>
+                    <p class="card-text">English : </br>{{data.title_english}}</p>
+                    <p class="card-text">Japanese : </br>{{data.title_japanese}}</p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title">Information</h5>
+                    <p class="card-text">Source : <span class="badge badge-danger">{{data.source}}</span></p>
+                    <p class="card-text">Status : <span class="badge badge-danger">{{data.status}}</span></p>
+                    <p class="card-text">Producers : {% set data_len = data['producers']|length%}{% for i in range(0,data_len)%} <span class="badge badge-danger">{{data.producers[i].name}}</span> {% endfor %} </p>
+                </li>
+            </ul>
+            <hr class="d-sm-none">
+        </div>
+        <div class="col-sm-8">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="badge rounded-pill bg-danger">
+                            <h5 style="margin-left:7px; margin-top:5px; margin-right:7px;"> Score : {{data.score}}</h5>
+                        </span>
+                        <span class="badge rounded-pill bg-danger" style="margin-left:5px;">
+                            <h5 style="margin-left:7px; margin-top:5px; margin-right:7px;"> Rank : {{data.rank}}</h5>
+                        </span>
+                        <span class="badge rounded-pill bg-danger" style="margin-left:5px;">
+                            <h5 style="margin-left:7px; margin-top:5px; margin-right:7px;"> Popularity: {{data.popularity}}</h5>
+                        </span>
+                    </div>
+                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                        <div class="card-body">
+
+                            <body data-spy="scroll" data-target=".navbar" data-offset="50"></body>
+                            <ul class="navbar-nav">
+                                <p class="card-text">Genre : {% set data_len = data['genres']|length%}{% for i in range(0,data_len)%} <a class="badge badge-danger" href="/genre/{{data.genres[i].name}}/1">{{data.genres[i].name}}</a> {% endfor %}</p><span class="badge badge-danger"> </span>
+                                <h2>Synopsis</h2>
+                                <p class="card-text">
+                                    {{data.synopsis}}
+                                </p>
+                            </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                </br>
+                <div style="height: 500px;" class="alert alert-light">
+                    {% if data.trailer_url %}
+                    <iframe width="100%" height="100%" src="{{data.trailer_url}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> {% else %}
+                    <h1>No Preview</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
